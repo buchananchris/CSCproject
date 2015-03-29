@@ -85,13 +85,19 @@
 	  var x2 = d3.scale.linear()
 	      .domain([xmin, xmax])
 	      .range([0, width]);
-	      
+	  
+	  /*
 	  var y = d3.scale.linear()
 	      .domain([0, d3.max(histdata, function(d) { 
 		  return d.numfill; 
 		  })])
 	      .range([height, 0]);
-
+         */
+         
+          var y = d3.scale.linear()
+              .domain([-2, 1])
+              .range([height, 0]);
+	      
 	  var xAxis = d3.svg.axis()
 	      .scale(x2)
 	      .orient("bottom");
@@ -118,9 +124,10 @@
 	  // add rectangles of correct size at correct location
 	  bar.append("rect")
 	      .attr("x", x(binmargin))
-	      .attr("width", x(binsize - 2 * binmargin))
-	      .attr("height", function(d) { return height - y(d.numfill); });
-	      
+	      //.attr("width", x(binsize + 2 * binmargin))
+	      .attr("width", x(0.05))
+	      //.attr("height", function(d) { return height - y(d.numfill); });
+	      .attr("height", function(d) { return y(d.numfill); });
 	  
 
 	  // add the x axis and x-label
